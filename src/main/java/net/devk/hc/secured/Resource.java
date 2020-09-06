@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 @Path("/")
 public class Resource {
@@ -22,8 +23,8 @@ public class Resource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("secured")
-	public Message getSecured() {
-		return new Message("secured");
+	public Message getSecured(@Context SecurityContext sc) {
+		return new Message(sc.getUserPrincipal().getName());
 	}
 
 	@GET
